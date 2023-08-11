@@ -19,6 +19,7 @@ export async function POST(
   }
 ) {
   try {
+    console.log('hello')
     const { prompt } = await request.json()
     const user = await currentUser()
 
