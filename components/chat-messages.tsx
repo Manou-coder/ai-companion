@@ -41,7 +41,7 @@ export const ChatMessages = ({
         src={companion.src}
         isLoading={fakeLoading}
         role="system"
-        content={`hello i am ${companion.name}`}
+        content={`hello i am ${companion.name}, ${companion.description}`}
       />
       {messages.map((message) => (
         <ChatMessage
