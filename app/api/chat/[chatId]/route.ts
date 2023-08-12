@@ -102,17 +102,34 @@ export async function POST(
 
     model.verbose = true
 
+    // const resp = String(
+    //   await model
+    //     .call(
+    //       `
+    //       ONLY generate plain sentences without prefix of who is speaking. DO NOT use ${companion.name}: prefix.
+
+    //       ${companion.instructions}
+
+    //       Below are relevant details about ${companion.name}'s past and the conversation you are in.
+    //       ${relevantHistory}
+
+    //       ${recentChatHistory}\n${companion.name}:`
+    //     )
+    //     .catch(console.error)
+    // )
+
     const resp = String(
       await model
         .call(
           `
-          ONLY generate plain sentences without prefix of who is speaking. DO NOT use ${companion.name}: prefix. 
+          Générez UNIQUEMENT des phrases simples sans préfixe de qui parle. N'UTILISEZ PAS le préfixe ${companion.name}
+          Répondez UNIQUEMENT en francais
   
           ${companion.instructions}
+
+          Vous trouverez ci-dessous des détails pertinents sur le passé de ${companion.name} et la conversation dans laquelle vous êtes.
   
-          Below are relevant details about ${companion.name}'s past and the conversation you are in.
           ${relevantHistory}
-  
   
           ${recentChatHistory}\n${companion.name}:`
         )
