@@ -1,4 +1,5 @@
 import prismadb from '@/lib/prismadb'
+import { checkSubscription } from '@/lib/subscription'
 import { currentUser } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 
@@ -24,7 +25,11 @@ export async function POST(req: Request) {
       return new NextResponse('Missing required files', { status: 401 })
     }
 
-    //   Todo check for subscriptions
+    const isPro = await checkSubscription()
+
+    if (!isPro) {
+      return new NextResponse('Pro subscription required', { status: 403 })
+    }
 
     const companion = await prismadb.companion.create({
       data: {
