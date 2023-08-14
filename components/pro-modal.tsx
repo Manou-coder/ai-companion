@@ -1,5 +1,6 @@
 'use client'
 
+import axios from 'axios'
 import {
   Dialog,
   DialogContent,
@@ -11,14 +12,18 @@ import { useProModal } from '@/hooks/use-pro-modal'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
-import { useState } from 'react'
-import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 export const ProModal = () => {
   const proModal = useProModal()
   const { toast } = useToast()
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => setIsMounted(true), [])
+
+  if (!isMounted) return null
 
   const onSubscribe = async () => {
     setIsLoading(true)
